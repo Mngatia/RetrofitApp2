@@ -1,10 +1,13 @@
 package com.example.retrofitapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,10 +18,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    List<Movie> movieList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        movieList = new ArrayList<>();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://run.mocky.io/")
@@ -38,12 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 List<Movie> movies = response.body();
+
                 for (Movie movie : movies){
-                    String responseTest = "";
+                    movieList.add(movie);
 
-                    responseTest += movie.getId();
-
-                     Log.v("Tag" , "" +responseTest);
+                   // String responseTest = "";
+                    //responseTest += movie.getId();
+                     //Log.v("Tag" , "" +responseTest);
+                        //  Display  in different list
+                    //int k = movie.getId();
+                   // String name = movie.getName();
+                    //String img = movie.getImage();
                 }
 
 
