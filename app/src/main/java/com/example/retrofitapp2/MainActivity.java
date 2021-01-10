@@ -1,6 +1,7 @@
 package com.example.retrofitapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.PUT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         MovieApi movieApi = retrofit.create(MovieApi.class);
 
-        Call<List<Movie>> call = movieApi.getMovies();
+        Call<List<Movie>>call = movieApi.getMovies();
 
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if (response.code() != 2000){
+                if (response.code() != 200){
                     //Handle the error and display it
                     return;
                 }
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Movie> movies = response.body();
 
                 for (Movie movie : movies){
+
                     movieList.add(movie);
 
                    // String responseTest = "";
@@ -59,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
                    // String name = movie.getName();
                     //String img = movie.getImage();
                 }
-
-
+                PutDataIntoRecyclerView(movieList);
+                //Log.v("log", String.valueOf(movieList.size()));
             }
 
             @Override
@@ -68,5 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void PutDataIntoRecyclerView(List<Movie> movieList) {
+        Adaptery adaptery = new Adaptery(this, movieList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adaptery);
+
     }
 }

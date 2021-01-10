@@ -38,6 +38,7 @@ public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+           // holder.id.setText(String.valueOf(movieList));
             holder.id.setText(movieList.get(position).getId());
             holder.title.setText(movieList.get(position).getImage());
 

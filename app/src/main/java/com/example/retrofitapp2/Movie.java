@@ -3,15 +3,15 @@ package com.example.retrofitapp2;
 public class Movie {
 
     //model class
-    private int id;
+    private String id;
     private String name;
     private String image;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
